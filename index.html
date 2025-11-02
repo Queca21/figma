@@ -22,8 +22,8 @@
 
         /* Header y Navegación */
         header {
-            background: #F7F083;
-            color: #1a472a;
+            background: #595453;
+            color: white;
             padding: 1rem 0;
             position: sticky;
             top: 0;
@@ -63,14 +63,14 @@
         }
 
         nav a {
-            color: #1a472a;
+            color: white;
             text-decoration: none;
             transition: color 0.3s ease;
             font-weight: 500;
         }
 
         nav a:hover {
-            color: #e60000;
+            color: #ffcccc;
         }
 
         /* Menú desplegable */
@@ -82,10 +82,10 @@
         .dropdown-content {
             display: none;
             position: fixed;
-            background-color: #F7F083;
+            background-color: #595453;
             min-width: 220px;
-            max-height: 70vh;
-            overflow-y: auto;
+            height: auto;
+            overflow: hidden;
             box-shadow: 0px 8px 20px 0px rgba(0,0,0,0.3);
             z-index: 1000;
             border-radius: 8px;
@@ -101,27 +101,10 @@
             position: static;
         }
 
-        /* Estilos para el scroll del dropdown */
-        .dropdown-content::-webkit-scrollbar {
-            width: 6px;
-        }
 
-        .dropdown-content::-webkit-scrollbar-track {
-            background: rgba(26, 71, 42, 0.1);
-            border-radius: 3px;
-        }
-
-        .dropdown-content::-webkit-scrollbar-thumb {
-            background: #1a472a;
-            border-radius: 3px;
-        }
-
-        .dropdown-content::-webkit-scrollbar-thumb:hover {
-            background: #e60000;
-        }
 
         .dropdown-content a {
-            color: #1a472a !important;
+            color: white !important;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
@@ -129,8 +112,8 @@
         }
 
         .dropdown-content a:hover {
-            background-color: rgba(26, 71, 42, 0.1);
-            color: #e60000 !important;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffcccc !important;
         }
 
         .dropdown > a::after {
@@ -139,40 +122,134 @@
             margin-left: 5px;
         }
 
-        /* Submenú de segundo nivel */
+        /* Submenú de segundo nivel restaurado y mejorado */
         .submenu {
             position: relative;
+            display: block;
+            width: 100%;
         }
 
         .submenu-content {
             display: none;
             position: absolute;
-            background-color: #F7F083;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1001;
-            border-radius: 8px;
+            background-color: white;
+            min-width: 200px;
+            height: auto;
+            overflow: hidden;
+            box-shadow: 0px 4px 15px 0px rgba(0,0,0,0.15);
+            z-index: 1002;
+            border-radius: 6px;
             left: 100%;
             top: 0;
-            padding: 10px 0;
+            padding: 8px 0;
+            border: 1px solid rgba(0,0,0,0.1);
         }
 
         .submenu:hover .submenu-content {
-            display: block;
+            display: block !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .submenu-content a {
-            color: #1a472a !important;
-            padding: 10px 16px;
+            color: #666 !important;
+            padding: 12px 20px;
             text-decoration: none;
             display: block;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .submenu-content a:hover {
-            background-color: rgba(26, 71, 42, 0.1);
+            background-color: rgba(230, 0, 0, 0.08);
             color: #e60000 !important;
+            padding-left: 25px;
         }
+
+        .submenu-content a:last-child {
+            border-bottom: none;
+        }
+
+        /* Estilos para los encabezados de sección */
+        .dropdown-section-header {
+            color: white !important;
+            font-weight: bold;
+            font-size: 0.95rem;
+            padding: 14px 16px;
+            background-color: transparent !important;
+            border-left: 3px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .dropdown-section-header:hover,
+        .submenu:hover .dropdown-section-header {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            color: #ffcccc !important;
+            border-left: 3px solid #ffcccc;
+        }
+
+        /* Estilo especial para secciones con submenú */
+        .submenu-trigger {
+            position: relative;
+        }
+
+        .submenu-trigger::after {
+            content: "▶";
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .submenu:hover .submenu-trigger::after {
+            color: #ffcccc;
+        }
+
+        /* Ajustar el ancho del dropdown internacional */
+        .dropdown:nth-child(3) .dropdown-content {
+            min-width: 280px;
+        }
+
+        /* Ocultar completamente las barras de scroll */
+        .dropdown-content::-webkit-scrollbar,
+        .submenu-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dropdown-content,
+        .submenu-content {
+            -ms-overflow-style: none;  /* IE y Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Hover más específico y confiable */
+        .dropdown-content .submenu:hover .submenu-content {
+            display: block !important;
+        }
+
+        /* CSS adicional para asegurar que funcione */
+        .submenu:hover > .submenu-content {
+            display: block !important;
+        }
+
+        li.dropdown .submenu:hover .submenu-content {
+            display: block !important;
+        }
+
+
 
         /* Hero Section */
         .hero {
@@ -204,8 +281,8 @@
         .btn {
             display: inline-block;
             padding: 12px 30px;
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #1a472a;
+            background: #785A70;
+            color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
@@ -404,12 +481,12 @@
         /* Sección de Testimonios */
         .testimonios {
             padding: 5rem 0;
-            background: linear-gradient(135deg, #1a472a 0%, #2d7a3e 100%);
+            background: #595453;
             color: white;
         }
 
         .testimonios .section-title {
-            color: #ffd700;  /* Color dorado para que destaque */
+            color: white;  /* Color blanco para mejor contraste */
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);  /* Sombra sutil para mejor legibilidad */
         }
 
@@ -424,17 +501,18 @@
             background: rgba(255,255,255,0.1);
             padding: 2rem;
             border-radius: 10px;
-            border-left: 4px solid #ffd700;
+            border-left: 4px solid white;
         }
 
         .testimonio p {
             margin-bottom: 1rem;
             font-style: italic;
+            color: #f0f0f0;
         }
 
         .autor {
             font-weight: bold;
-            color: #ffd700;
+            color: white;
         }
 
         /* Formulario de Contacto */
@@ -480,7 +558,7 @@
 
         /* Footer */
         footer {
-            background: #0f2d1a;
+            background: #595453;
             color: white;
             padding: 3rem 0 1rem;
             margin-top: 3rem;
@@ -509,7 +587,7 @@
 
         .footer-section h4 {
             margin-bottom: 1rem;
-            color: #ffd700;
+            color: white;
         }
 
         .footer-section ul {
@@ -527,7 +605,7 @@
         }
 
         .footer-section a:hover {
-            color: #ffd700;
+            color: #f0f0f0;
         }
 
         /* Estilos para oficinas en footer */
@@ -536,8 +614,8 @@
         }
 
         .oficina-titulo {
-            background: #F7F083;
-            color: #1a472a;
+            background: #595453;
+            color: white;
             font-weight: bold;
             padding: 8px 12px;
             border-radius: 6px;
@@ -555,7 +633,7 @@
         }
 
         .oficina-item i {
-            color: #ffd700;
+            color: white;
             margin-right: 8px;
             width: 12px;
         }
@@ -570,21 +648,21 @@
             align-items: center;
             padding: 10px 12px;
             margin-bottom: 8px;
-            background: rgba(247, 240, 131, 0.1);
+            background: rgba(89, 84, 83, 0.1);
             border-radius: 6px;
-            border-left: 3px solid #F7F083;
+            border-left: 3px solid #595453;
             text-decoration: none;
             transition: all 0.3s ease;
         }
 
         .legal-link:hover {
-            background: rgba(247, 240, 131, 0.2);
-            border-left-color: #ffd700;
+            background: rgba(89, 84, 83, 0.2);
+            border-left-color: #4a3f3e;
             transform: translateX(5px);
         }
 
         .legal-link i {
-            color: #ffd700;
+            color: white;
             margin-right: 10px;
             font-size: 1.1rem;
             width: 16px;
@@ -597,7 +675,7 @@
         }
 
         .legal-link:hover span {
-            color: #ffd700;
+            color: white;
         }
 
         .mapa-container {
@@ -630,7 +708,7 @@
         }
 
         .footer-section-extra h5 {
-            color: #ffd700;
+            color: white;
             margin-bottom: 0.8rem;
             font-size: 1rem;
         }
@@ -649,7 +727,7 @@
         }
 
         .enlaces-rapidos a:hover {
-            color: #ffd700;
+            color: white;
             padding-left: 5px;
         }
 
@@ -668,7 +746,7 @@
         }
 
         .contacto-info i {
-            color: #ffd700;
+            color: white;
             width: 16px;
             font-size: 1rem;
         }
@@ -755,7 +833,7 @@
                 flex-direction: column;
                 gap: 1rem;
                 display: none;
-                background: #F7F083;
+                background: #595453;
             }
 
             nav.active ul {
@@ -847,7 +925,7 @@
                 top: 120px;
                 left: 0;
                 right: 0;
-                background: #F7F083;
+                background: #595453;
                 flex-direction: column;
                 padding: 1rem;
                 display: none;
@@ -863,13 +941,13 @@
 
             nav ul li {
                 width: 100%;
-                border-bottom: 1px solid rgba(26, 71, 42, 0.2);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             }
 
             nav ul li a {
                 display: block;
                 padding: 15px 10px;
-                color: #1a472a !important;
+                color: white !important;
                 font-size: 1.1rem;
                 width: 100%;
             }
@@ -877,7 +955,7 @@
             .dropdown-content {
                 position: static;
                 display: none;
-                background-color: rgba(247, 240, 131, 0.9);
+                background-color: rgba(89, 84, 83, 0.9);
                 box-shadow: none;
                 border-radius: 0;
                 margin-left: 20px;
@@ -896,7 +974,7 @@
             .submenu-content {
                 position: static;
                 display: none;
-                background-color: rgba(247, 240, 131, 0.8);
+                background-color: rgba(89, 84, 83, 0.8);
                 box-shadow: none;
                 border-radius: 0;
                 margin-left: 40px;
@@ -910,6 +988,7 @@
             .dropdown-content a, .submenu-content a {
                 padding: 10px 15px !important;
                 font-size: 1rem !important;
+                color: white !important;
             }
         }
     </style>
@@ -950,7 +1029,7 @@
                         <a href="#internacional">Internacional</a>
                         <div class="dropdown-content">
                             <div class="submenu">
-                                <a href="#sudamerica">SUDAMERICA ▶</a>
+                                <div class="dropdown-section-header submenu-trigger">SUDAMERICA</div>
                                 <div class="submenu-content">
                                     <a href="#argentina">Argentina</a>
                                     <a href="#brasil">Brasil</a>
@@ -958,10 +1037,14 @@
                                     <a href="#chile">Chile</a>
                                     <a href="#colombia">Colombia</a>
                                     <a href="#ecuador">Ecuador</a>
+                                    <a href="#uruguay">Uruguay</a>
+                                    <a href="#venezuela">Venezuela</a>
+                                    <a href="#paraguay">Paraguay</a>
+                                    <a href="#guyana">Guyana</a>
                                 </div>
                             </div>
                             <div class="submenu">
-                                <a href="#centroamerica">CENTRO AMERICA Y CARIBE ▶</a>
+                                <div class="dropdown-section-header submenu-trigger">CENTRO AMERICA Y CARIBE</div>
                                 <div class="submenu-content">
                                     <a href="#aruba">Aruba</a>
                                     <a href="#costarica">Costa Rica</a>
@@ -973,7 +1056,7 @@
                                 </div>
                             </div>
                             <div class="submenu">
-                                <a href="#norteamerica">NORTE AMERICA ▶</a>
+                                <div class="dropdown-section-header submenu-trigger">NORTE AMERICA</div>
                                 <div class="submenu-content">
                                     <a href="#usa">USA</a>
                                     <a href="#canada">Canada</a>
@@ -981,7 +1064,6 @@
                                     <a href="#haiti">Haiti</a>
                                 </div>
                             </div>
-                            <a href="#eventos">EVENTOS</a>
                         </div>
                     </li>
                     <li><a href="#objetivo">Objetivo</a></li>
@@ -1005,8 +1087,8 @@
         <section class="objetivo" id="objetivo">
             <style>
                 .section-title-red {
-                    background: #F7F083;
-                    color: #1a472a;
+                    background: #595453;
+                    color: white;
                     font-size: 2.5rem;
                     font-weight: bold;
                     text-align: center;
@@ -1090,8 +1172,8 @@
                     color: #444;
                 }
                 .section-title-mv {
-                    background: #F7F083;
-                    color: #1a472a;
+                    background: #595453;
+                    color: white;
                     font-size: 2rem;
                     font-weight: bold;
                     text-align: center;
@@ -1185,7 +1267,7 @@
                         Me complace presentarte este conglomerado de información, en nuestra renovada web, que te servirá para conocer mejor la empresa, las personas que trabajan dentro de ella, las actividades que se realizan, y toda la paquetería que tenemos a nivel mundial para ti y tus clientes, la misma que está trabajada de manera minuciosa y que será actualizada mensualmente.<br>
                         En nuestra web podrás encontrar paquetes en sitios sumamente conocidos, así como lugares remotos dentro del planeta, también contarás con los contactos necesarios para solicitar dicha información, además del asesoramiento para que dichos paquetes sean vendidos rápidamente, gracias a nuestro equipo altamente calificado.<br>
                         Estamos dichosos de poder brindarte esta excelente herramienta y, podamos lograr juntos muchas más ventas.</p>
-                        <p style="font-weight:bold;">PERU ROUTES<br><span style="color:#228B22;">Tu Mayorista Aliado!</span></p>
+                        <p style="font-weight:bold;">TOUCAN AMAZON TOURS<br><span style="color:#228B22;">Tu Mayorista Aliado!</span></p>
                     </div>
                 </div>
 
@@ -1258,7 +1340,7 @@
                 </div>
 
                 <div class="section-title-red" style="margin-top: 3rem;">NUESTRO EQUIPO</div>
-                <p style="text-align:center;max-width:900px;margin:0 auto 2rem auto;">En Peru Routes Mayorista somos líderes en ofrecer soluciones a las agencias de viaje con un equipo humano comprometido a acompañarlas en todo momento.<br>
+                <p style="text-align:center;max-width:900px;margin:0 auto 2rem auto;">En Toucan Amazon Tours Mayorista somos líderes en ofrecer soluciones a las agencias de viaje con un equipo humano comprometido a acompañarlas en todo momento.<br>
                 Te presentamos a nuestro personal el cual te acompañará en todo momento a brindarte el mejor servicio.</p>
                 <div class="equipo-grid">
                     <!-- Ejemplo de tarjeta de equipo con espacio para foto -->
@@ -1282,7 +1364,7 @@
                         <div class="foto-equipo">
                             <img src="./img/vale.jpg" alt="Valeria Alejandra">
                         </div>
-                        <strong>Valeria Alejandra Pinedo Coello</strong><br>Área Contable<br>
+                        <strong>Valeria Alejandra Pinedo Coello</strong><br>Gerente de Marketing<br>
                         <a href="mailto:v.pinedo@toucan.com"><i class="fas fa-envelope"></i> v.pinedo@toucan.com</a><br>
                         <a href="tel:+51970585982"><i class="fas fa-phone"></i> +51 970 585 982</a>
                     </div>
@@ -1298,7 +1380,7 @@
                         <div class="foto-equipo">
                             <img src="./img/yulan.jpg" alt="Milagros Yu-lan">
                         </div>
-                        <strong>Milagros Yu-lan Navarro Vilca</strong><br>Gerente de Marketing<br>
+                        <strong>Milagros Yu-lan Navarro Vilca</strong><br>Área Contable<br>
                         <a href="mailto:m.navarro@toucan.com"><i class="fas fa-envelope"></i> m.navarro@toucan.com</a><br>
                         <a href="tel:+51974668617"><i class="fas fa-phone"></i> +51 974 668 617</a>
                     </div>
@@ -1351,10 +1433,6 @@
         <div class="container">
             <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
             <div class="testimonios-grid">
-                <div class="testimonio">
-                    <p>"Una experiencia inolvidable. Los guías fueron increíbles y la naturaleza nos dejó sin palabras. Definitivamente volveremos."</p>
-                    <div class="autor">- María García, España</div>
-                </div>
                 <div class="testimonio">
                     <p>"El mejor viaje de mi vida. La selva es más hermosa de lo que imaginaba. Recomiendo Toucan Amazon Tours 100%."</p>
                     <div class="autor">- Carlos Rodríguez, Argentina</div>
@@ -1432,12 +1510,7 @@
                     <h4>Nuestras Oficinas</h4>
                     <div class="oficina-item">
                         <div class="oficina-titulo">Oficina Madre de Dios</div>
-                        <p><i class="fas fa-map-marker-alt"></i> Av. Pardo 610 - T2 - Puerto Maldonado</p>
-                        <p><i class="fas fa-map-marker-alt"></i> Av. Jose Larco 1021 - Puerto Maldonado</p>
-                    </div>
-                    <div class="oficina-item">
-                        <div class="oficina-titulo">Oficina Cusco</div>
-                        <p><i class="fas fa-map-marker-alt"></i> Qorikancha Tienda B-1021</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Av. 2 de Mayo 396 - 305, Puerto Maldonado</p>
                     </div>
                 </div>
                 
@@ -1454,7 +1527,7 @@
                         </a>
                     </div>
                     <div class="mapa-container">
-                        <h5 style="color: #ffd700; margin-bottom: 10px;">
+                        <h5 style="color: white; margin-bottom: 10px;">
                             <i class="fas fa-map"></i> Encuéntranos
                         </h5>
                         <div class="mapa-embed">
