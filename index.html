@@ -79,17 +79,14 @@
             display: inline-block;
         }
 
+        /* Menú principal desplegable */
         .dropdown-content {
             display: none;
-            position: fixed;
-            background-color: #595453;
-            min-width: 220px;
-            height: auto;
-            overflow: hidden;
-            box-shadow: 0px 8px 20px 0px rgba(0,0,0,0.3);
-            z-index: 1000;
-            border-radius: 8px;
-            padding: 10px 0;
+            position: absolute;
+            background-color: #785A70;
+            min-width: 280px;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.15);
+            z-index: 1001;
         }
 
         .dropdown:hover .dropdown-content {
@@ -129,24 +126,60 @@
             width: 100%;
         }
 
+        /* Expandir área de hover */
+        .submenu::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -10px;
+            width: 10px;
+            height: 100%;
+            z-index: 1001;
+        }
+
+        /* Submenú de segundo nivel */
         .submenu-content {
             display: none;
             position: absolute;
-            background-color: white;
+            background-color: #785A70;
             min-width: 200px;
-            height: auto;
-            overflow: hidden;
-            box-shadow: 0px 4px 15px 0px rgba(0,0,0,0.15);
+            left: 100%;  /* Se posiciona a la derecha del menú padre */
+            top: -1px;
             z-index: 1002;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
             border-radius: 6px;
-            left: 100%;
-            top: 0;
-            padding: 8px 0;
-            border: 1px solid rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
 
         .submenu:hover .submenu-content {
             display: block !important;
+        }
+
+        /* Efecto hover en SUDAMERICA */
+        .submenu:hover {
+            border-left: 3px solid #ffcccc;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        /* Estilos para los enlaces de sección */
+        .submenu > a {
+            display: block;
+            padding: 12px 16px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .submenu > a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #ffcccc;
         }
 
         @keyframes fadeIn {
@@ -155,19 +188,22 @@
         }
 
         .submenu-content a {
-            color: #666 !important;
+            color: white !important;
             padding: 12px 20px;
             text-decoration: none;
             display: block;
             transition: all 0.3s ease;
             font-size: 0.95rem;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
         .submenu-content a:hover {
-            background-color: rgba(230, 0, 0, 0.08);
-            color: #e60000 !important;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffcccc !important;
             padding-left: 25px;
+            border-left: 3px solid #ffcccc;
         }
 
         .submenu-content a:last-child {
@@ -223,6 +259,48 @@
             min-width: 280px;
         }
 
+        /* SOLUCIÓN DEFINITIVA - CSS SIMPLE Y DIRECTO */
+        .submenu:hover .submenu-content {
+            display: block !important;
+        }
+
+        .dropdown-section-header:hover + .submenu-content {
+            display: block !important;
+        }
+
+        /* CSS DE EMERGENCIA - MUY ESPECÍFICO */
+        nav li.dropdown div.dropdown-content div.submenu:hover div.submenu-content {
+            display: block !important;
+            visibility: visible !important;
+            position: absolute !important;
+            left: 100% !important;
+            top: 0 !important;
+            background: #785A70 !important;
+            z-index: 99999 !important;
+        }
+
+        /* CSS ADICIONAL PARA GARANTIZAR FUNCIONAMIENTO */
+        .submenu:hover > .submenu-content,
+        .dropdown-section-header.submenu-trigger:hover + .submenu-content {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        /* FORZAR HOVER EN TODOS LOS CASOS */
+        .submenu:hover .submenu-content {
+            display: block !important;
+            left: 100% !important;
+            top: 0 !important;
+            position: absolute !important;
+            background: #785A70 !important;
+            min-width: 200px !important;
+            z-index: 99999 !important;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.15) !important;
+            border-radius: 6px !important;
+            border: 1px solid rgba(120, 90, 112, 0.3) !important;
+        }
+
         /* Ocultar completamente las barras de scroll */
         .dropdown-content::-webkit-scrollbar,
         .submenu-content::-webkit-scrollbar {
@@ -235,18 +313,22 @@
             scrollbar-width: none;  /* Firefox */
         }
 
-        /* Hover más específico y confiable */
-        .dropdown-content .submenu:hover .submenu-content {
+        /* SELECTORES ESPECÍFICOS Y DIRECTOS */
+        .dropdown-content .submenu:hover .submenu-content,
+        .submenu:hover > .submenu-content,
+        li.dropdown .submenu:hover .submenu-content,
+        nav ul li.dropdown .dropdown-content .submenu:hover .submenu-content,
+        .dropdown-section-header:hover + .submenu-content {
             display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
-        /* CSS adicional para asegurar que funcione */
-        .submenu:hover > .submenu-content {
+        /* CSS MUY DIRECTO - Garantiza que funcione */
+        .submenu:hover .submenu-content,
+        .submenu-trigger:hover ~ .submenu-content {
             display: block !important;
-        }
-
-        li.dropdown .submenu:hover .submenu-content {
-            display: block !important;
+            visibility: visible !important;
         }
 
 
@@ -1029,7 +1111,7 @@
                         <a href="#internacional">Internacional</a>
                         <div class="dropdown-content">
                             <div class="submenu">
-                                <div class="dropdown-section-header submenu-trigger">SUDAMERICA</div>
+                                <a href="#sudamerica">SUDAMERICA</a>
                                 <div class="submenu-content">
                                     <a href="#argentina">Argentina</a>
                                     <a href="#brasil">Brasil</a>
@@ -1044,7 +1126,7 @@
                                 </div>
                             </div>
                             <div class="submenu">
-                                <div class="dropdown-section-header submenu-trigger">CENTRO AMERICA Y CARIBE</div>
+                                <a href="#centroamerica">CENTRO AMERICA Y CARIBE</a>
                                 <div class="submenu-content">
                                     <a href="#aruba">Aruba</a>
                                     <a href="#costarica">Costa Rica</a>
@@ -1056,7 +1138,7 @@
                                 </div>
                             </div>
                             <div class="submenu">
-                                <div class="dropdown-section-header submenu-trigger">NORTE AMERICA</div>
+                                <a href="#norteamerica">NORTE AMERICA</a>
                                 <div class="submenu-content">
                                     <a href="#usa">USA</a>
                                     <a href="#canada">Canada</a>
@@ -1595,6 +1677,29 @@
                         positionDropdown(this, content);
                     }
                 });
+            });
+        });
+
+        // Submenús en desktop
+        document.addEventListener('DOMContentLoaded', function() {
+            const submenus = document.querySelectorAll('.submenu');
+            
+            submenus.forEach(submenu => {
+                const submenuContent = submenu.querySelector('.submenu-content');
+                
+                if (submenuContent) {
+                    submenu.addEventListener('mouseenter', function() {
+                        submenuContent.style.display = 'block';
+                    });
+                    
+                    submenu.addEventListener('mouseleave', function() {
+                        setTimeout(() => {
+                            if (!submenu.matches(':hover')) {
+                                submenuContent.style.display = 'none';
+                            }
+                        }, 100);
+                    });
+                }
             });
         });
 
